@@ -43,9 +43,10 @@ public class MainActivity extends AppCompatActivity {
     public String getSmsInPhone() {
         final String SMS_URI_ALL = "content://sms/";
         StringBuilder smsBuilder = new StringBuilder();
+        // StringBuilder 与 String 不同的是 StringBuilder 能够被多次修改，而不产生新的使用对象
         try {
-
             Uri uri = Uri.parse(SMS_URI_ALL);
+
             String[] projection = new String[] { "_id", "address", "person",
                     "body", "date", };
             Cursor cur = getContentResolver().query(uri, projection, null,
