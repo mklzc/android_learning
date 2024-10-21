@@ -26,7 +26,8 @@ import androidx.core.view.WindowInsetsCompat;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.Objects;
-
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MainActivity extends AppCompatActivity {
     private final List<String> mData = new ArrayList<>();
@@ -40,14 +41,7 @@ public class MainActivity extends AppCompatActivity {
         ImageButton refresh_button = findViewById(R.id.refresh_button);
         refresh_button.setOnClickListener(view -> refresh());
         ImageButton card_button = findViewById(R.id.id_card);
-        card_button.setOnClickListener(view -> {
-            String path = "taobao://m.tb.cn/h.gEy8xsq";
-            Intent intent = new Intent();
-            intent.setAction("android.intent.action.VIEW");
-            Uri uri = Uri.parse(path);
-            intent.setData(uri);
-            startActivity(intent);
-        });
+        card_button.setOnClickListener(view -> openIdBarcode());
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -64,13 +58,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private boolean judge(String strBody) {
-        final List<String> keywords = Arrays.asList("驿收发", "快递");
+        final List<String> keywords = Arrays.asList("驿收发");
         for (String kw : keywords) {
             if (strBody.contains(kw)) {
                 return true;
             }
         }
         return false;
+    }
+    public String getPackageId(String strBody) {
+        String regex = "[0-9A-Z]+-[0-9]+";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(strBody);
+        if (matcher.find()) {
+            return matcher.group();
+        } else {
+            return "未找到取货码";
+        }
     }
     public void getSmsInPhone() {
         final String SMS_URI_ALL = "content://sms/";
@@ -79,29 +83,23 @@ public class MainActivity extends AppCompatActivity {
         try {
             Uri uri = Uri.parse(SMS_URI_ALL);
             // parse 将字符串转化为 uri 对象
-            String[] projection = new String[] { "_id", "address", "person",
-                    "body", "date", };
+            String[] projection = new String[] {"body", "date", };
             Cursor cur = getContentResolver().query(uri, projection, null,
                     null, "date desc");
             assert cur != null;
-            int index_Address = cur.getColumnIndex("address");
-            int index_Person = cur.getColumnIndex("person");
             int index_Body = cur.getColumnIndex("body");
             int index_Date = cur.getColumnIndex("date");
             while (cur.moveToNext()) {
                 StringBuilder smsBuilder = new StringBuilder();
-                String strAddress = cur.getString(index_Address);
-                int intPerson = cur.getInt(index_Person);
                 String strBody = cur.getString(index_Body);
                 long longDate = cur.getLong(index_Date);
                 @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
                 Date d = new Date(longDate);
                 String strDate = dateFormat.format(d);
                 if (judge(strBody)) {
+                    String packageId = getPackageId(strBody);
                     smsBuilder.append("[ ");
-                    smsBuilder.append(strAddress).append(", ");
-                    smsBuilder.append(intPerson).append(", ");
-                    smsBuilder.append(strBody).append(", ");
+                    smsBuilder.append(packageId).append(", ");
                     smsBuilder.append(strDate).append(", ");
                     smsBuilder.append(" ]");
                 }
@@ -118,6 +116,14 @@ public class MainActivity extends AppCompatActivity {
     }
     public void refresh() {
         Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+    public void openIdBarcode() {
+        String path = "taobao://m.tb.cn/h.gEy8xsq";
+        Intent intent = new Intent();
+        intent.setAction("android.intent.action.VIEW");
+        Uri uri = Uri.parse(path);
+        intent.setData(uri);
         startActivity(intent);
     }
 }
