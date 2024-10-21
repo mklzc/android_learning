@@ -98,10 +98,9 @@ public class MainActivity extends AppCompatActivity {
                 String strDate = dateFormat.format(d);
                 if (judge(strBody)) {
                     String packageId = getPackageId(strBody);
-                    smsBuilder.append("[ ");
-                    smsBuilder.append(packageId).append(", ");
-                    smsBuilder.append(strDate).append(", ");
-                    smsBuilder.append(" ]");
+                    smsBuilder.append("取货码：");
+                    smsBuilder.append(packageId).append("\n日期");
+                    smsBuilder.append(strDate);
                 }
                 if (smsBuilder.length() != 0) {
                     mData.add(smsBuilder.toString());
