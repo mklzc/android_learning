@@ -1,128 +1,58 @@
 package com.example.myapplication;
 
-import android.annotation.SuppressLint;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteException;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.ImageButton;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import java.sql.Date;
-import java.text.SimpleDateFormat;
-import java.util.Objects;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 public class MainActivity extends AppCompatActivity {
-    private final List<String> mData = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        ImageButton refresh_button = findViewById(R.id.refresh_button);
-        refresh_button.setOnClickListener(view -> refresh());
-        ImageButton card_button = findViewById(R.id.id_card);
-        card_button.setOnClickListener(view -> openIdBarcode());
-
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-        RecyclerView mRecyclerView = findViewById(R.id.recyclerView);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        getSmsInPhone();
-        MyAdapter mAdapter = new MyAdapter(mData);
-        mRecyclerView.setAdapter(mAdapter);
-    }
-
-    private boolean judge(String strBody) {
-        final List<String> keywords = Arrays.asList("驿收发");
-        for (String kw : keywords) {
-            if (strBody.contains(kw)) {
-                return true;
+        Button kuaidi_button = findViewById(R.id.kuaidi_button);
+        kuaidi_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, Kuaidi.class);
+                startActivity(intent);
             }
-        }
-        return false;
-    }
-    public String getPackageId(String strBody) {
-        String regex = "[0-9A-Z]+-[0-9]+";
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(strBody);
-        if (matcher.find()) {
-            return matcher.group();
-        } else {
-            return "未找到取货码";
-        }
-    }
-    public void getSmsInPhone() {
-        final String SMS_URI_ALL = "content://sms/";
-        mData.add("");
-        // StringBuilder 与 String 不同的是 StringBuilder 能够被多次修改，而不产生新的使用对象
-        try {
-            Uri uri = Uri.parse(SMS_URI_ALL);
-            // parse 将字符串转化为 uri 对象
-            String[] projection = new String[] {"body", "date", };
-            Cursor cur = getContentResolver().query(uri, projection, null,
-                    null, "date desc");
-            assert cur != null;
-            int index_Body = cur.getColumnIndex("body");
-            int index_Date = cur.getColumnIndex("date");
-            while (cur.moveToNext()) {
-                StringBuilder smsBuilder = new StringBuilder();
-                String strBody = cur.getString(index_Body);
-                long longDate = cur.getLong(index_Date);
-                @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-                Date d = new Date(longDate);
-                String strDate = dateFormat.format(d);
-                if (judge(strBody)) {
-                    String packageId = getPackageId(strBody);
-                    smsBuilder.append("取货码：");
-                    smsBuilder.append(packageId).append("\n日期");
-                    smsBuilder.append(strDate);
-                }
-                if (smsBuilder.length() != 0) {
-                    mData.add(smsBuilder.toString());
+        });
+
+        Button kebiao_button = findViewById(R.id.kebiao_button);
+        kebiao_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String path = "http://jwglweixin.bupt.edu.cn/sjd/#/new/newTable_10013";
+                Intent intent = new Intent();
+                intent.setAction("android.intent.action.VIEW");
+                Uri uri = Uri.parse(path);
+                intent.setData(uri);
+                intent.setPackage("com.tencent.wework");
+                try {
+                    startActivity(intent);
+                } catch (ActivityNotFoundException e) {
+                    Toast.makeText(MainActivity.this, "启动失败", Toast.LENGTH_SHORT).show();
                 }
             }
-            if (!cur.isClosed()) {
-                cur.close();
-            }
-        } catch (SQLiteException ex) {
-            Log.d("SQLiteException in getSmsInPhone", Objects.requireNonNull(ex.getMessage()));
-        }
-    }
-    public void refresh() {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-    }
-    public void openIdBarcode() {
-        String path = "taobao://m.tb.cn/h.gEy8xsq";
-        Intent intent = new Intent();
-        intent.setAction("android.intent.action.VIEW");
-        Uri uri = Uri.parse(path);
-        intent.setData(uri);
-        startActivity(intent);
+        });
     }
 }
