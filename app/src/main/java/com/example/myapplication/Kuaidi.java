@@ -4,10 +4,12 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteException;
+import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
 
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageButton;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -79,7 +81,6 @@ public class Kuaidi extends AppCompatActivity {
     }
     public void getSmsInPhone() {
         final String SMS_URI_ALL = "content://sms/";
-        mData.add("");
         // StringBuilder 与 String 不同的是 StringBuilder 能够被多次修改，而不产生新的使用对象
         try {
             Uri uri = Uri.parse(SMS_URI_ALL);

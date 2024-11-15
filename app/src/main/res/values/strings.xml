@@ -2,4 +2,6 @@
     <string name="app_name">My Application</string>
     <string name="kuaidi">快递</string>
     <string name="kebiao">课程</string>
+    <string name="ucloud">云邮</string>
+    <string name="ktp">KT派</string>
 </resources>
