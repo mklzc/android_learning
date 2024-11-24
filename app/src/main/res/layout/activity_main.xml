@@ -34,6 +34,19 @@
         app:layout_constraintHorizontal_bias="0.379"
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
 
+    <Button
+        android:id="@+id/toDoList_button"
+        android:layout_width="167dp"
+        android:layout_height="78dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:drawableLeft="@drawable/baseline_done_40"
+        android:text="@string/daiban"
+        android:textColor="@color/black"
+        android:textSize="32sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/kuaidi_button" />
+
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="0dp"
@@ -61,5 +74,4 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

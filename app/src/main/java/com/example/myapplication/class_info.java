@@ -54,6 +54,13 @@ public class class_info extends AppCompatActivity {
             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(TARGET_URL));
             startActivity(browserIntent);
         });
+
+        Button xinXiMenHu = findViewById(R.id.xinXiMenHu);
+        xinXiMenHu.setOnClickListener(view -> {
+            final String TARGET_URL = "http://my.bupt.edu.cn";
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(TARGET_URL));
+            startActivity(browserIntent);
+        });
     }
 
     static class Course {

@@ -3,5 +3,7 @@
     <string name="kuaidi">快递</string>
     <string name="kebiao">课程</string>
     <string name="ucloud">云邮</string>
-    <string name="ktp">KT派</string>
+    <string name="ktp">课堂派</string>
+    <string name="daiban">待办</string>
+    <string name="xinXiMenHu">信息门户</string>
 </resources>
