@@ -60,6 +60,19 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+    <Button
+        android:id="@+id/btformer_class"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="上一节课"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/next_class"
+        tools:ignore="HardcodedText" />
+
+
+
     <LinearLayout
         android:layout_width="363dp"
         android:layout_height="145dp"
@@ -69,7 +82,7 @@
         android:weightSum="3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/next_class">
+        app:layout_constraintTop_toBottomOf="@+id/btformer_class">
 
         <Button
             android:id="@+id/ketangpai"
@@ -105,6 +118,7 @@
             android:textColor="@color/black"
             android:textSize="28sp" />
     </LinearLayout>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,29 +1,47 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:padding="16dp">
 
+    <!-- 输入任务标题 -->
     <EditText
-        android:id="@+id/etTask"
+        android:id="@+id/etTaskTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Add a new task"
+        android:hint="Enter task title"
+        android:inputType="text"
+        android:padding="8dp"
         tools:ignore="HardcodedText" />
 
+    <!-- 输入截止日期 -->
+    <EditText
+        android:id="@+id/etTaskDeadline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter deadline (yyyy-MM-dd)"
+        android:inputType="date"
+        android:padding="8dp"
+        android:layout_marginTop="8dp"
+        tools:ignore="HardcodedText" />
+
+    <!-- 添加任务按钮 -->
     <Button
         android:id="@+id/btnAddTask"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Add Task"
+        android:layout_marginTop="8dp"
         tools:ignore="HardcodedText" />
 
+    <!-- 显示任务列表 -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvTasks"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:layout_marginTop="16dp" />
 
 </LinearLayout>

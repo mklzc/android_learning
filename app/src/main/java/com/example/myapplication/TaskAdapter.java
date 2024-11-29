@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,6 +8,9 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder> {
@@ -30,6 +34,12 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
     public void onBindViewHolder(@NonNull TaskViewHolder holder, int position) {
         Task task = tasks.get(position);
         holder.tvTaskTitle.setText(task.getTitle());
+        if (task.getDeadline() != null) {
+            Date deadline = task.getDeadline();
+            @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            String output = "Deadline: " + dateFormat.format(deadline);
+            holder.tvTaskDeadline.setText(output);
+        }
         holder.cbCompleted.setChecked(task.isCompleted());
 
         holder.cbCompleted.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -52,12 +62,13 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
     }
 
     static public class TaskViewHolder extends RecyclerView.ViewHolder {
-            TextView tvTaskTitle;
-            CheckBox cbCompleted;
-
+        TextView tvTaskTitle;
+        TextView tvTaskDeadline;
+        CheckBox cbCompleted;
         TaskViewHolder(View itemView) {
             super(itemView);
             tvTaskTitle = itemView.findViewById(R.id.tvTaskTitle);
+            tvTaskDeadline = itemView.findViewById(R.id.tvDeadline);
             cbCompleted = itemView.findViewById(R.id.cbCompleted);
         }
     }

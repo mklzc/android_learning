@@ -14,6 +14,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -21,6 +22,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class class_info extends AppCompatActivity {
+    boolean isNextClass = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,8 +40,22 @@ public class class_info extends AppCompatActivity {
             Intent intent = new Intent(class_info.this, MainActivity.class);
             startActivity(intent);
         });
-        TextView nextClass = findViewById(R.id.next_class);
-        nextClass.setText(getNextClass());
+        TextView tvClass = findViewById(R.id.next_class);
+        tvClass.setText(getNextClass());
+
+        Button btFormerClass = findViewById(R.id.btformer_class);
+        btFormerClass.setOnClickListener(view -> {
+            if (isNextClass) {
+                btFormerClass.setText("下一节课");
+                tvClass.setText(getFormerClass());
+                isNextClass = false;
+            }
+            else {
+                btFormerClass.setText("上一节课");
+                tvClass.setText(getNextClass());
+                isNextClass = true;
+            }
+        });
 
         Button ucloudButton = findViewById(R.id.ucloud);
         ucloudButton.setOnClickListener(view -> {
@@ -63,7 +79,7 @@ public class class_info extends AppCompatActivity {
         });
     }
 
-    static class Course {
+    public static class Course {
         int dayOfWeek; // 1 = Monday, 7 = Sunday
         String time;
         List<Integer> weeks;
@@ -104,7 +120,34 @@ public class class_info extends AppCompatActivity {
         int deltaDays = (int) (today.toEpochDay() - startDate.toEpochDay());
         return deltaDays / 7 + 1;
     }
-
+    public String getFormerClass() {
+        int currentWeek = calculateCurrentWeek();
+        LocalDateTime now = LocalDateTime.now();
+        int currentDayOfWeek = now.getDayOfWeek().getValue(); // Monday = 1, Sunday = 7
+        LocalTime currentTime = now.toLocalTime();
+        List<Map.Entry<String, Course>> classes = new ArrayList<>();
+        for (Map.Entry<String, Course> entry : timetable.entrySet()) {
+            Course course = entry.getValue();
+            if (course.dayOfWeek == currentDayOfWeek && course.weeks.contains(currentWeek)) {
+                String startTimeString = course.time.split("-")[0];
+                LocalTime startTime = LocalTime.parse(startTimeString, DateTimeFormatter.ofPattern("HH:mm"));
+                if (startTime.isBefore(currentTime)) {
+                    classes.add(entry);
+                }
+            }
+        }
+        classes.sort(Comparator.comparing(e -> LocalTime.parse(e.getValue().time.split("-")[0], DateTimeFormatter.ofPattern("HH:mm"))));
+        Collections.reverse(classes);
+        if (!classes.isEmpty()) {
+            Map.Entry<String, Course> formerClassEntry = classes.get(0);
+            Course formerClass = formerClassEntry.getValue();
+            return String.format("上一节课是%s\n时间：%s\n地点：%s", formerClass.courseName, formerClass.time, formerClass.location);
+        }
+        else {
+            return "这是今天的第一节课";
+        }
+    }
+    //
     public static String getNextClass() {
         int currentWeek = calculateCurrentWeek();
         LocalDateTime now = LocalDateTime.now();
@@ -112,7 +155,6 @@ public class class_info extends AppCompatActivity {
         LocalTime currentTime = now.toLocalTime();
 
         List<Map.Entry<String, Course>> todayClasses = new ArrayList<>();
-
         for (Map.Entry<String, Course> entry : timetable.entrySet()) {
             Course course = entry.getValue();
             if (course.dayOfWeek == currentDayOfWeek && course.weeks.contains(currentWeek)) {
