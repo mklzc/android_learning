@@ -5,8 +5,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -70,6 +72,24 @@ public class TaskDatabaseHelper extends SQLiteOpenHelper {
             tasks.add(new Task(id, title, completed, deadline));
         }
         cursor.close();
+        for (Task task : tasks) {
+            Log.d("asasass", task.getTitle() + " - " + task.getDeadline());
+        }
+        if (!tasks.isEmpty()) {
+            tasks.sort(new Comparator<Task>() {
+                @Override
+                public int compare(Task task1, Task task2) {
+                    if (task1.getDeadline() == null && task2.getDeadline() == null) {
+                        return 0;  // 两者 deadline 都为 null，认为相等
+                    } else if (task1.getDeadline() == null) {
+                        return 1;  // task1 的 deadline 为 null，排到最后
+                    } else if (task2.getDeadline() == null) {
+                        return -1; // task2 的 deadline 为 null，排到最后
+                    }
+                    return task1.getDeadline().compareTo(task2.getDeadline());
+                }
+            });
+        }
         return tasks;
     }
 
