@@ -96,26 +96,48 @@ public class class_info extends AppCompatActivity {
     }
 
     static Map<String, Course> timetable = new HashMap<>();
-
+//    大一上课表
+//    static {
+//        timetable.put("Python与人工智能", new Course("Python与人工智能", 1, "19:20-20:00", Arrays.asList(3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18), "S509"));
+//        timetable.put("军事理论", new Course("军事理论", 3, "08:00-09:35", Arrays.asList(4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16), "N104"));
+//        timetable.put("高阶综合英语", new Course("高阶综合英语", 3, "09:50-11:25", Arrays.asList(3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18), "S1-309"));
+//        timetable.put("大学生心理健康1", new Course("大学生心理健康1", 4, "16:35-18:10", Arrays.asList(3, 4, 5), "S210"));
+//        timetable.put("线性代数", new Course("线性代数", 4, "13:00-15:30", Arrays.asList(3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18), "S210"));
+//        timetable.put("创新创业实践课", new Course("创新创业实践课", 1, "13:00-15:30", Arrays.asList(3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18), "N315"));
+//        timetable.put("计算导论与程序设计 (星期二)", new Course("计算导论与程序设计", 2, "08:00-09:35", Arrays.asList(3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18), "S302"));
+//        timetable.put("计算导论与程序设计 (星期四)", new Course("计算导论与程序设计", 4, "08:00-09:35", Arrays.asList(3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18), "S404"));
+//        timetable.put("信息通信概论 A", new Course("信息通信概论 A", 1, "08:00-09:35", Arrays.asList(11, 12, 13, 14, 15, 16, 17, 18), "S207"));
+//        timetable.put("形势与政策1", new Course("形势与政策1", 1, "08:00-09:35", Arrays.asList(8, 9, 10), "N403"));
+//        timetable.put("习近平新时代中国特色社会主义思想概论", new Course("习近平新时代中国特色社会主义思想概论", 2, "09:50-12:15", Arrays.asList(3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18), "N116"));
+//        timetable.put("数学分析(上)(星期二)", new Course("数学分析(上)", 2, "15:40-18:10", Arrays.asList(3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18), "S208"));
+//        timetable.put("数学分析(上)(星期五)", new Course("数学分析(上)", 5, "13:00-15:30", Arrays.asList(3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18), "S205"));
+//        timetable.put("思想道德与法治", new Course("思想道德与法治", 4, "09:50-12:15", Arrays.asList(3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16), "S404"));
+//    }
+//  大一下课表
     static {
-        timetable.put("Python与人工智能", new Course("Python与人工智能", 1, "19:20-20:00", Arrays.asList(3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18), "S509"));
-        timetable.put("军事理论", new Course("军事理论", 3, "08:00-09:35", Arrays.asList(4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16), "N104"));
-        timetable.put("高阶综合英语", new Course("高阶综合英语", 3, "09:50-11:25", Arrays.asList(3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18), "S1-309"));
-        timetable.put("大学生心理健康1", new Course("大学生心理健康1", 4, "16:35-18:10", Arrays.asList(3, 4, 5), "S210"));
-        timetable.put("线性代数", new Course("线性代数", 4, "13:00-15:30", Arrays.asList(3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18), "S210"));
-        timetable.put("创新创业实践课", new Course("创新创业实践课", 1, "13:00-15:30", Arrays.asList(3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18), "N315"));
-        timetable.put("计算导论与程序设计 (星期二)", new Course("计算导论与程序设计", 2, "08:00-09:35", Arrays.asList(3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18), "S302"));
-        timetable.put("计算导论与程序设计 (星期四)", new Course("计算导论与程序设计", 4, "08:00-09:35", Arrays.asList(3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18), "S404"));
-        timetable.put("信息通信概论 A", new Course("信息通信概论 A", 1, "08:00-09:35", Arrays.asList(11, 12, 13, 14, 15, 16, 17, 18), "S207"));
-        timetable.put("形势与政策1", new Course("形势与政策1", 1, "08:00-09:35", Arrays.asList(8, 9, 10), "N403"));
-        timetable.put("习近平新时代中国特色社会主义思想概论", new Course("习近平新时代中国特色社会主义思想概论", 2, "09:50-12:15", Arrays.asList(3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18), "N116"));
-        timetable.put("数学分析(上)(星期二)", new Course("数学分析(上)", 2, "15:40-18:10", Arrays.asList(3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18), "S208"));
-        timetable.put("数学分析(上)(星期五)", new Course("数学分析(上)", 5, "13:00-15:30", Arrays.asList(3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18), "S205"));
-        timetable.put("思想道德与法治", new Course("思想道德与法治", 4, "09:50-12:15", Arrays.asList(3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16), "S404"));
+        timetable.put("国家安全教育（下）", new Course("国家安全教育（下）", 1, "08:00-09:35", Arrays.asList(4, 5, 6, 7), "N108"));
+        timetable.put("数学分析(下)1", new Course("数学分析(下)", 1, "09:50-12:15", Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16), "S104"));
+        timetable.put("中国近现代史纲要", new Course("中国近现代史纲要", 1, "13:00-15:30", Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14), "N308"));
+        timetable.put("大学物理D2", new Course("大学物理D", 2, "08:00-09:35", Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16), "S216"));
+        timetable.put("形势与政策2", new Course("形势与政策2", 2, "13:00-14:35", Arrays.asList(8, 9, 10), "N513"));
+        timetable.put("设计思维", new Course("设计思维", 2, "16:35-18:10", Arrays.asList(9, 10, 11, 12, 13, 14, 15, 16), "S502"));
+        timetable.put("微信小程序开发入门（双创）", new Course("微信小程序开发入门（双创）", 2, "19:20-20:55", Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8), "S1-110"));
+        timetable.put("中华人民共和国史", new Course("中华人民共和国史", 3, "08:00-09:35", Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8), "N119"));
+        timetable.put("科技胜任力英语", new Course("科技胜任力英语", 3, "09:50-11:25", Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16), "S1-413"));
+        timetable.put("人工智能引论 A", new Course("人工智能引论 A", 4, "08:00-09:35", Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16), "N110"));
+        timetable.put("大学物理D4", new Course("大学物理D", 4, "09:50-11:25", Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16), "S216"));
+        timetable.put("数学分析(下)4", new Course("数学分析(下)", 4, "13:00-15:30", Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16), "S106"));
+        timetable.put("离散数学(上)", new Course("离散数学(上)", 4, "16:35-18:10", Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16), "S205"));
+        timetable.put("电路与电子学基础", new Course("电路与电子学基础", 5, "08:00-09:35", Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16), "S302"));
+        timetable.put("项目式课程阶段1（计算导论与程序设计课程设计）", new Course("项目式课程阶段1（计算导论与程序设计课程设计）", 5, "09:50-12:15", Arrays.asList(3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14), "N319"));
+        timetable.put("体育基础", new Course("体育基础", 5, "14:45-16:25", Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16), "体育场"));
     }
 
+
+
     public static int calculateCurrentWeek() {
-        LocalDate startDate = LocalDate.of(2024, 8, 26);
+//        LocalDate startDate = LocalDate.of(2024, 8, 26);
+        LocalDate startDate = LocalDate.of(2025, 2, 24);
         LocalDate today = LocalDate.now();
         int deltaDays = (int) (today.toEpochDay() - startDate.toEpochDay());
         return deltaDays / 7 + 1;
