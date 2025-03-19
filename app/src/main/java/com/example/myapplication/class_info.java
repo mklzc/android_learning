@@ -142,7 +142,7 @@ public class class_info extends AppCompatActivity {
         int deltaDays = (int) (today.toEpochDay() - startDate.toEpochDay());
         return deltaDays / 7 + 1;
     }
-    public String getFormerClass() {
+    public static String getFormerClass() {
         int currentWeek = calculateCurrentWeek();
         LocalDateTime now = LocalDateTime.now();
         int currentDayOfWeek = now.getDayOfWeek().getValue(); // Monday = 1, Sunday = 7
